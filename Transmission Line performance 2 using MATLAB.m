@@ -1,0 +1,16 @@
+clc;
+l=input('\n Enter the length of Transmission Line in KM:');
+r=input('\n Enter the Resistance value in ohm/km:');
+L=input('\n Enter the Inductance value in H/km:');
+C=input('\n Enter the Capacitance value in F/km:');
+f=60;
+w=2*pi*f;
+beta=w*sqrt(L*C);
+zc=sqrt(L/C);
+velocity=1/sqrt(L*C);
+lamda=velocity/f;
+fprintf('\n Velocity of Propagation in km/s:(%f)\n',velocity);
+fprintf('\n Line Wavelength in km is:(%f)\n',lamda);
+fprintf('\n Phase Constant Beta is:(%f)\n',beta);
+fprintf('\n Surge Impedance Zc is:(%f)\n',zc);
+fclose all;
