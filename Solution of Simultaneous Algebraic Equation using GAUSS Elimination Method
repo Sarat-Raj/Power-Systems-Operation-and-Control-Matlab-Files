@@ -1,0 +1,44 @@
+clc;
+clear all;
+ip=fopen('ge.ip','r+');
+op=fopen('ge.op','w+');
+n=3;
+a=fscanf(ip,'%g',[n,n]);
+y=fscanf(ip,'%g',[n,1]);
+g=transpose(y);
+b=transpose(a);
+fprintf(op,'Solution for Simultaneous Algebraic Equation\n');
+fprintf(op,'\t\t\t AX=Y using MATLAB\n\n');
+fprintf(op,'Input 3-Variables\n');
+fprintf(op,'Matrix A:\n');
+for i=1:n
+ for j=1:n
+ fprintf(op,'%g\t',a(i,j));
+ end
+ fprintf(op,'\n');
+end
+fprintf(op,'\nMatrix Y:\n');
+fprintf(op,'%g\n',g);
+fprintf(op,'\n\n');
+for i=1:n
+ g(i)=g(i)/b(i,i);
+ for j=n:-1:i
+ b(i,j)=b(i,j)/b(i,i);
+ end
+ for k=n:-1:i+1
+ g(k)=g(k)-b(k,i)*g(i);
+ for jj=n:-1;1
+ b(k,jj)=b(k,jj)-b(k,i)*b(i,jj);
+ end
+ end
+end
+x=g;
+for i=n:-1:1
+ for j=i+1:n
+ x(i)=x(i)-b(i,j)*x(j);
+ end
+end
+fprintf(op,'Output\n');
+fprintf(op,'Matrix X:\n');
+fprintf(op,'%g\n',x);
+fclose all;
